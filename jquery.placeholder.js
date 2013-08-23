@@ -115,18 +115,17 @@
 
     // Restore placeholder on blur and keyup
   , restorePlaceholder: function (e) {
-      var isActiveElement
+      var isActiveElement = this.$el.is(':focus')
       if (this.isActive) return;
       if (this.$el[0].value === '') {
         this.isActive = true
         if (this.isPassword) {
-          isActiveElement = this.$el.is(':focus')
           this.$el.after(this.$replacement).detach()
           if (isActiveElement) this.$replacement.focus()
         } else {
           this.$el[0].value = this.placeholderAttr
           this.$el.addClass(this.options.className)
-          this.setCaret.apply(this, arguments)
+          if (isActiveElement) this.setCaret.apply(this, arguments)
         }
       }
     }
