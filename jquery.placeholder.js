@@ -103,7 +103,7 @@
       if (!e || !(e.shiftKey && e.keyCode === 16) && e.keyCode !== 9) {
         this.isActive = false
         if (this.isPassword) {
-          isActiveElement = this.$replacement[0] === document.activeElement
+          isActiveElement = this.$replacement.is(':focus')
           this.$replacement.after(this.$el).detach()
           if (isActiveElement) this.$el.focus()
         } else {
@@ -120,7 +120,7 @@
       if (this.$el[0].value === '') {
         this.isActive = true
         if (this.isPassword) {
-          isActiveElement = this.$el[0] === document.activeElement
+          isActiveElement = this.$el.is(':focus')
           this.$el.after(this.$replacement).detach()
           if (isActiveElement) this.$replacement.focus()
         } else {
