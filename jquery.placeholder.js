@@ -71,13 +71,13 @@
       this.$el.removeAttr('placeholder')
       this.isPassword = this.$el.is('[type=password]')
       if (this.isPassword) this.makeReplacement()
-      this.$replacement
-        .on({
-            'keydown.placeholder': $.proxy(this.clearPlaceholder, this)
-          , 'focus.placeholder drop.placeholder click.placeholder': $.proxy(this.setCaret, this)
-          })
-      this.$el
-        .on('blur.placeholder keyup.placeholder', $.proxy(this.restorePlaceholder, this))
+      this.$replacement.on({
+        'keydown.placeholder': $.proxy(this.clearPlaceholder, this)
+      , 'focus.placeholder drop.placeholder click.placeholder': $.proxy(this.setCaret, this)
+      })
+      this.$el.on({
+        'blur.placeholder keyup.placeholder': $.proxy(this.restorePlaceholder, this)
+      })
       this.restorePlaceholder()
     }
 
