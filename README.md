@@ -8,7 +8,7 @@ Yet another jQuery placeholder plugin
 
 ## History
 
-Modern broswers toggle placeholders based on user input while existing polyfills and some browsers with native support (ie10) toggle placeholder on focus.
+Modern broswers toggle placeholder based on user input, while existing polyfills and some browsers with native support (ie10) show placeholder only on focus.
 
 This plugin is my attempt to bring modern placeholder behavior to the browsers that do not support it.
 
