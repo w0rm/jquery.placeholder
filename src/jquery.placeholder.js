@@ -8,7 +8,9 @@
   Released under the MIT license
 */
 
-;(function (factory) {
+(function (factory) {
+  'use strict';
+
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as anonymous module.
     define(['jquery'], factory)
@@ -17,6 +19,7 @@
     factory(jQuery)
   }
 }(function ($) {
+  'use strict';
 
   var isInputSupported = 'placeholder' in document.createElement('input')
     , isTextareaSupported = 'placeholder' in document.createElement('textarea')
@@ -42,7 +45,7 @@
       var range = el.createTextRange()
       range.move('character', index)
       range.select()
-    } else if (el.selectionStart != null) {
+    } else if (el.selectionStart !== null) {
       el.focus()
       el.setSelectionRange(index, index)
     }
@@ -114,7 +117,7 @@
     }
 
     // Restore placeholder on blur and keyup
-  , restorePlaceholder: function (e) {
+  , restorePlaceholder: function () {
       var isActiveElement = this.$el.is(':focus')
       if (this.isActive) return;
       if (this.$el[0].value === '') {
@@ -132,7 +135,6 @@
 
     // Set caret at the beginning of the input
   , setCaret: function (e) {
-      var el = this.$el[0]
       if (this.isActive && e) {
         setCaretTo(this.$replacement[0], 0)
         e.preventDefault()
@@ -151,7 +153,7 @@
         )
 
       // replacement should not have input name
-      delete replacementAttributes['name']
+      delete replacementAttributes.name
 
       this.$replacement = $('<input>', replacementAttributes)
         .data('placeholder', this)

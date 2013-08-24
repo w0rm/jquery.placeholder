@@ -1,0 +1,18 @@
+{
+  "asi": true,
+  "boss": true,
+  "browser": true,
+  "globals": {
+    "jQuery": true,
+    "define": true
+  },
+  "indent": 2,
+  "laxcomma": true,
+  "maxlen": 100,
+  "newcap": true,
+  "strict": true,
+  "trailing": true,
+  "undef": true,
+  "unused": true,
+  "quotmark": "single"
+}
