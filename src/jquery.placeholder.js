@@ -213,4 +213,6 @@
     $placeholders.placeholder('clearPlaceholder')
   })
 
+  return Placeholder
+
 }));
