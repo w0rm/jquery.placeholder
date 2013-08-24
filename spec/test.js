@@ -38,6 +38,7 @@ define(function (require) {
 
     it('should set empty text input value to placeholder', function () {
       expect($textInputWithoutValue.attr('placeholder')).to.equal($textInputWithoutValue.placeholder(options)[0].value)
+      expect($textInputWithoutValue.hasClass(options.className)).to.be.true
     })
 
     it('should set input value to placeholder if value is set to empty', function () {
@@ -59,6 +60,7 @@ define(function (require) {
       $passwordInputWithoutValue.placeholder(options)
       expect($('#' + idAttr).attr('type')).to.equal('text')
       expect($('#' + idAttr)[0].value).to.equal(placeholderAttr)
+      expect($('#' + idAttr).hasClass(options.className)).to.be.true
     })
 
     it('should keep input value', function () {
