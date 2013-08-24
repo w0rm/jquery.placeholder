@@ -1,7 +1,13 @@
-describe('Test', function () {
+define(function (require) {
 
-  it('should register as jquery plugin', function() {
-    expect($.fn.placeholder).to.exist;
-  });
+  var Placeholder = require('jquery.placeholder')
+
+  describe('Test', function () {
+
+    it('should register as jquery plugin', function() {
+      expect($.fn.placeholder).to.exist
+    })
+
+  })
 
 });
