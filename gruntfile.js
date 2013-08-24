@@ -20,20 +20,21 @@ module.exports = function(grunt) {
     },
     mocha_phantomjs: {
       all: ['spec/**/*.html']
-    }
+    },
+    bower: {install: true}
   });
 
   // Load plugins
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-mocha-phantomjs');
+  grunt.loadNpmTasks('grunt-bower-task');
 
   // Default task(s).
-  grunt.registerTask('default', ['jshint', 'uglify', 'mocha_phantomjs']);
-
+  grunt.registerTask('default', ['bower:install', 'jshint', 'uglify', 'mocha_phantomjs']);
 
   // Travis CI task.
-  grunt.registerTask('travis', ['jshint', 'mocha_phantomjs']);
+  grunt.registerTask('travis', ['bower:install', 'jshint', 'mocha_phantomjs']);
 
 
 };

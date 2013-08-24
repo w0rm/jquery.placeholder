@@ -3,19 +3,19 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>tests</title>
-    <link href="../node_modules/mocha/mocha.css" media="screen" rel="stylesheet">
+    <link href="../lib/mocha/mocha.css" media="screen" rel="stylesheet">
   </head>
   <body>
       <!-- Required for browser reporter -->
       <div id="mocha"></div>
-      <script src="../node_modules/mocha/mocha.js"></script>
-      <script src="../node_modules/chai/chai.js"></script>
+      <script src="../lib/mocha/mocha.js"></script>
+      <script src="../lib/chai/chai.js"></script>
       <script>
         mocha.ui('bdd')
         expect = chai.expect
       </script>
 
-      <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+      <script src="../lib/jquery/jquery.js"></script>
       <script src="../src/jquery.placeholder.js"></script>
 
       <script src="test.js"></script>

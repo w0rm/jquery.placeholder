@@ -1,0 +1,22 @@
+{
+  "name": "jquery.placeholder",
+  "version": "0.1.0",
+  "description": "Yet another jQuery placeholder plugin",
+  "private": true,
+  "main": "src/jquery.placeholder.js",
+  "ignore": [
+    ".jshintrc",
+    ".gitignore",
+    ".travis.yml",
+    "gruntfile.js",
+    "package.json",
+    "spec"
+  ],
+  "dependencies": {
+    "jquery": "~1.10"
+  },
+  "devDependencies": {
+    "mocha": "~1.12.0",
+    "chai": "~1.7.2"
+  }
+}

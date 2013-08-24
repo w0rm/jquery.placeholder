@@ -1,4 +1,6 @@
 .DS_Store
 dest
 node_modules
+bower_components
+lib
 npm-debug.log
