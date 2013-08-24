@@ -21,7 +21,7 @@ module.exports = function(grunt) {
     mocha_phantomjs: {
       all: ['spec/**/*.html']
     },
-    bower: {install: true}
+    bower: {install: {}}
   });
 
   // Load plugins
