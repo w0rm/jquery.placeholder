@@ -8,6 +8,7 @@ require.config({
 , shim: {
     mocha: {
       init: function () {
+        'use strict';
         this.mocha.ui('bdd')
         return this.mochaPhantomJS || this.mocha
       }
@@ -16,6 +17,8 @@ require.config({
 })
 
 require(['chai', 'mocha'], function (chai, mocha) {
+
+  'use strict';
 
   window.expect = chai.expect
 

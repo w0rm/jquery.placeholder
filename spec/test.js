@@ -1,5 +1,7 @@
 define(function (require) {
 
+  'use strict';
+
   var Placeholder = require('jquery.placeholder')
     , $ = require('jquery')
     , options = {force: true, className: 'placeholder'}
@@ -13,10 +15,14 @@ define(function (require) {
       , $passwordInputWithValue
 
     beforeEach(function () {
-      $textInputWithoutValue = $('<input id="text1" placeholder="test placeholder" type="text">')
-      $textInputWithValue = $('<input id="text2" value="test value" placeholder="test placeholder" type="text">')
-      $passwordInputWithoutValue = $('<input id="password1" placeholder="test placeholder" type="password">')
-      $passwordInputWithValue = $('<input id="password2" value="test value" placeholder="test placeholder" type="password">')
+      $textInputWithoutValue = $('<input id="text1" placeholder="test placeholder" ' +
+                                 'type="text">')
+      $textInputWithValue = $('<input id="text2" value="test value" ' +
+                              'placeholder="test placeholder" type="text">')
+      $passwordInputWithoutValue = $('<input id="password1" placeholder="test placeholder" ' +
+                                     'type="password">')
+      $passwordInputWithValue = $('<input id="password2" value="test value" ' +
+                                  'placeholder="test placeholder" type="password">')
 
       $('#test').append(
         $textInputWithoutValue
@@ -28,7 +34,8 @@ define(function (require) {
 
     it('should register as jquery plugin', function () {
       expect($.fn.placeholder).to.exist
-      expect($textInputWithoutValue.placeholder(options)).to.equal($textInputWithoutValue)
+      expect($textInputWithoutValue.placeholder(options))
+        .to.equal($textInputWithoutValue)
     })
 
     it('should store itself in data', function () {
@@ -37,7 +44,8 @@ define(function (require) {
     })
 
     it('should set empty text input value to placeholder', function () {
-      expect($textInputWithoutValue.attr('placeholder')).to.equal($textInputWithoutValue.placeholder(options)[0].value)
+      expect($textInputWithoutValue.attr('placeholder'))
+        .to.equal($textInputWithoutValue.placeholder(options)[0].value)
       expect($textInputWithoutValue.hasClass(options.className)).to.be.true
     })
 
@@ -54,7 +62,8 @@ define(function (require) {
       expect($passwordInputWithoutValue.placeholder(options).val()).to.equal('')
     })
 
-    it('should replace empty password input with text input which value is set to placeholder', function () {
+    it('should replace empty password input ' +
+       'with text input which value is set to placeholder', function () {
       var placeholderAttr = $passwordInputWithoutValue.attr('placeholder')
         , idAttr = $passwordInputWithoutValue.attr('id')
       $passwordInputWithoutValue.placeholder(options)
@@ -64,8 +73,10 @@ define(function (require) {
     })
 
     it('should keep input value', function () {
-      expect($textInputWithValue[0].value).to.equal($textInputWithValue.placeholder(options)[0].value)
-      expect($passwordInputWithValue[0].value).to.equal($passwordInputWithValue.placeholder(options)[0].value)
+      expect($textInputWithValue[0].value)
+        .to.equal($textInputWithValue.placeholder(options)[0].value)
+      expect($passwordInputWithValue[0].value)
+        .to.equal($passwordInputWithValue.placeholder(options)[0].value)
     })
 
     afterEach(function () {

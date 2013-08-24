@@ -2,9 +2,17 @@
   "asi": true,
   "boss": true,
   "browser": true,
+  "expr": true,
   "globals": {
     "jQuery": true,
-    "define": true
+    "define": true,
+    "require": true,
+
+    "expect": true,
+    "it": true,
+    "describe": true,
+    "beforeEach": true,
+    "afterEach": true
   },
   "indent": 2,
   "laxcomma": true,

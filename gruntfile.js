@@ -1,42 +1,38 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    uglify: {
+    pkg: grunt.file.readJSON('package.json')
+  , uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-      },
-      build: {
+      }
+    , build: {
         src: 'src/<%= pkg.name %>.js'
       , dest: 'dest/<%= pkg.name %>.min.js'
       }
-    },
-    jshint: {
-      files: ['src/*.js']
+    }
+  , jshint: {
+      files: ['src/*.js', 'spec/*.js']
     , options: {
         jshintrc: '.jshintrc'
       }
-    },
-    mocha_phantomjs: {
+    }
+  , mocha_phantomjs: {
       all: ['spec/**/*.html']
-    },
-    bower: {install: {}}
-  });
+    }
+  , bower: {install: {}}
+  })
 
   // Load plugins
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-mocha-phantomjs');
-  grunt.loadNpmTasks('grunt-bower-task');
+  grunt.loadNpmTasks('grunt-contrib-uglify')
+  grunt.loadNpmTasks('grunt-contrib-jshint')
+  grunt.loadNpmTasks('grunt-mocha-phantomjs')
+  grunt.loadNpmTasks('grunt-bower-task')
 
-  // Default task(s).
-  grunt.registerTask('default', ['bower:install', 'jshint', 'uglify', 'mocha_phantomjs']);
-
-  grunt.registerTask('test', ['jshint', 'mocha_phantomjs']);
-
-  // Travis CI task.
-  grunt.registerTask('travis', ['bower:install', 'jshint', 'mocha_phantomjs']);
-
+  // Register tasks
+  grunt.registerTask('default', ['bower:install', 'jshint', 'uglify', 'mocha_phantomjs'])
+  grunt.registerTask('test', ['jshint', 'mocha_phantomjs'])
+  grunt.registerTask('travis', ['bower:install', 'jshint', 'mocha_phantomjs'])
 
 };
