@@ -1,6 +1,10 @@
 {
   "name": "jquery.placeholder",
   "version": "0.1.0",
+  "repository" : {
+    "type" : "git",
+    "url" : "http://github.com/w0rm/jquery.placeholder.git"
+  },
   "devDependencies": {
     "chai": "~1.7.2",
     "mocha": "~1.12.0",
