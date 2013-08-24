@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 
 
   // Travis CI task.
-  grunt.registerTask('travis', ['lint']);
+  grunt.registerTask('travis', ['jshint', 'mocha_phantomjs']);
 
 
 };
