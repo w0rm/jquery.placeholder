@@ -33,6 +33,8 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('default', ['bower:install', 'jshint', 'uglify', 'mocha_phantomjs']);
 
+  grunt.registerTask('test', ['jshint', 'mocha_phantomjs']);
+
   // Travis CI task.
   grunt.registerTask('travis', ['bower:install', 'jshint', 'mocha_phantomjs']);
 
