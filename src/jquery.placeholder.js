@@ -2,7 +2,7 @@
   jQuery placeholder plugin
   by Andrey Kuzmin, @unsoundscapes
 
-  Based on exisitng plugin http://mths.be/placeholder by @mathias
+  Based on existing plugin http://mths.be/placeholder by @mathias
   Adopted to toggle placeholder on user input instead of focus
 
   Released under the MIT license
