@@ -4,6 +4,7 @@ define(function (require) {
 
   var Placeholder = require('jquery.placeholder')
     , $ = require('jquery')
+    , expect = require('expect')
     , options = {force: true, className: 'placeholder'}
 
 
@@ -31,13 +32,13 @@ define(function (require) {
     it('should store itself in data', function () {
       var $el = makeInput({value: ''})
         , placeholderData = $el.placeholder(options).data('placeholder')
-      expect(placeholderData).to.be.an.instanceof(Placeholder)
+      expect(placeholderData).to.be.a(Placeholder)
     })
 
     it('should set empty text input value to placeholder', function () {
       var $el = makeInput({value: ''})
       expect($el.attr('placeholder')).to.equal($el.placeholder(options)[0].value)
-      expect($el.hasClass(options.className)).to.be.true
+      expect($el.hasClass(options.className)).to.be(true)
     })
 
     it('should show placeholder if value is set to empty', function () {
@@ -45,14 +46,14 @@ define(function (require) {
         , placeholderAttr = $el.attr('placeholder')
       $el.placeholder(options).val('')
       expect($el[0].value).to.equal(placeholderAttr)
-      expect($el.hasClass(options.className)).to.be.true
+      expect($el.hasClass(options.className)).to.be(true)
     })
 
     it('should hide placeholder if value is set to non empty', function () {
       var value = 'test value'
         , $el = makeInput({value: ''}).placeholder().val(value)
       expect($el[0].value).to.equal(value)
-      expect($el.hasClass(options.className)).to.be.false
+      expect($el.hasClass(options.className)).to.be(false)
     })
 
     it('should return empty value if placeholder is active', function () {
@@ -73,7 +74,7 @@ define(function (require) {
       expect($replacement.attr('type')).to.equal('text')
       expect($replacement[0].value).to.equal(placeholderAttr)
       expect($replacement[0].name).to.equal('')
-      expect($replacement.hasClass(options.className)).to.be.true
+      expect($replacement.hasClass(options.className)).to.be(true)
     })
 
     it('should not show placeholder if value is not empty', function () {

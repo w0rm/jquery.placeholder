@@ -3,10 +3,11 @@ require.config({
 , paths: {
     jquery: '../lib/jquery/jquery'
   , mocha: '../lib/mocha/mocha'
-  , chai: '../lib/chai/chai'
+  , expect: '../lib/expect/expect'
   }
 , shim: {
-    mocha: {
+    expect: {exports: 'expect'}
+  , mocha: {
       init: function () {
         'use strict';
         this.mocha.ui('bdd')
@@ -16,14 +17,7 @@ require.config({
   }
 })
 
-require(['chai', 'mocha'], function (chai, mocha) {
-
+require(['mocha', '../spec/test.js'], function (mocha) {
   'use strict';
-
-  window.expect = chai.expect
-
-  require(['../spec/test.js'], function () {
-    mocha.run()
-  })
-
+  mocha.run()
 })

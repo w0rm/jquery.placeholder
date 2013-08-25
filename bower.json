@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "mocha": "~1.12.0",
-    "chai": "~1.7.2",
-    "requirejs": "~2.1"
+    "requirejs": "~2.1",
+    "expect": "https://github.com/LearnBoost/expect.js.git"
   }
 }
