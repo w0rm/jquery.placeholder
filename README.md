@@ -29,5 +29,4 @@ This plugin is my attempt to bring modern placeholder behavior to the browsers t
 ## Running tests
 
 	npm i --save-dev
-	bower i
 	grunt
