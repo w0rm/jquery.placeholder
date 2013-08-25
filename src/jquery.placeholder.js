@@ -3,6 +3,8 @@
   by Andrey Kuzmin, @unsoundscapes
 
   Based on existing plugin http://mths.be/placeholder by @mathias
+  and this demo http://robertnyman.com/2011/05/02/ by @robertnyman
+
   Adopted to toggle placeholder on user input instead of focus
 
   Released under the MIT license
