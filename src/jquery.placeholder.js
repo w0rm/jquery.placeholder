@@ -109,7 +109,7 @@
         this.isActive = false
         if (this.isPassword) {
           isActiveElement = this.$replacement.is(':focus')
-          this.$replacement.after(this.$el).detach()
+          this.$replacement.before(this.$el.show()).hide()
           if (isActiveElement) this.$el.focus()
         } else {
           this.$el[0].value = ''
@@ -125,7 +125,7 @@
       if (this.$el[0].value === '') {
         this.isActive = true
         if (this.isPassword) {
-          this.$el.after(this.$replacement).detach()
+          this.$el.before(this.$replacement.show()).hide()
           if (isActiveElement) this.$replacement.focus()
         } else {
           this.$el[0].value = this.placeholderAttr
