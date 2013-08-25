@@ -22,11 +22,21 @@ module.exports = function (grunt) {
       all: ['spec/**/*.html']
     }
   , bower: {install: {}}
+  , connect: {
+      server: {
+        options: {
+          port: 8888
+        , hostname: '*'
+        , base: '.'
+        }
+      }
+    }
   })
 
   // Load plugins
   grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-jshint')
+  grunt.loadNpmTasks('grunt-contrib-connect')
   grunt.loadNpmTasks('grunt-mocha-phantomjs')
   grunt.loadNpmTasks('grunt-bower-task')
 
@@ -35,4 +45,5 @@ module.exports = function (grunt) {
   grunt.registerTask('test', ['jshint', 'mocha_phantomjs'])
   grunt.registerTask('travis', ['bower:install', 'jshint', 'mocha_phantomjs'])
 
+  grunt.registerTask('server', ['connect:server:keepalive'])
 };
