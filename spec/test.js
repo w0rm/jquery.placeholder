@@ -40,12 +40,19 @@ define(function (require) {
       expect($el.hasClass(options.className)).to.be.true
     })
 
-    it('should set input value to placeholder if value is set to empty', function () {
+    it('should show placeholder if value is set to empty', function () {
       var $el = makeInput()
         , placeholderAttr = $el.attr('placeholder')
       $el.placeholder(options).val('')
       expect($el[0].value).to.equal(placeholderAttr)
       expect($el.hasClass(options.className)).to.be.true
+    })
+
+    it('should hide placeholder if value is set to non empty', function () {
+      var value = 'test value'
+        , $el = makeInput({value: ''}).placeholder().val(value)
+      expect($el[0].value).to.equal(value)
+      expect($el.hasClass(options.className)).to.be.false
     })
 
     it('should return empty value if placeholder is active', function () {
@@ -58,13 +65,19 @@ define(function (require) {
       var $el = makeInput({type: 'password', value: ''})
         , placeholderAttr = $el.attr('placeholder')
         , idAttr = $el.attr('id')
+        , $replacement
+
       $el.placeholder(options)
-      expect($('#' + idAttr).attr('type')).to.equal('text')
-      expect($('#' + idAttr)[0].value).to.equal(placeholderAttr)
-      expect($('#' + idAttr).hasClass(options.className)).to.be.true
+      $replacement = $('#test').find('#' + idAttr)
+
+      expect($el.parent().length).to.equal(0) // el should be detached
+      expect($replacement.attr('type')).to.equal('text')
+      expect($replacement[0].value).to.equal(placeholderAttr)
+      expect($replacement[0].name).to.equal('')
+      expect($replacement.hasClass(options.className)).to.be.true
     })
 
-    it('should keep input value', function () {
+    it('should not show placeholder if value is not empty', function () {
       var $txtEl = makeInput()
         , $passEl = makeInput({type: 'password'})
       expect($txtEl[0].value).to.equal($txtEl.placeholder(options)[0].value)
