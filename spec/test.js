@@ -70,7 +70,6 @@ define(function (require) {
       $el.placeholder(options)
       $replacement = $('#test').find('#' + idAttr)
 
-      expect($el.parent().length).to.equal(0) // el should be detached
       expect($replacement.attr('type')).to.equal('text')
       expect($replacement[0].value).to.equal(placeholderAttr)
       expect($replacement[0].name).to.equal('')
