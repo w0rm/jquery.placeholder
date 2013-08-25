@@ -7,7 +7,7 @@ define(function (require) {
     , options = {force: true, className: 'placeholder'}
 
 
-  describe('jQuery placeholder plugin', function () {
+  describe('jQuery placeholder', function () {
 
     var currentId = 0
 
@@ -61,7 +61,7 @@ define(function (require) {
     })
 
     it('should replace empty password input ' +
-       'with text input which value is set to placeholder', function () {
+       'with input set to placeholder value', function () {
       var $el = makeInput({type: 'password', value: ''})
         , placeholderAttr = $el.attr('placeholder')
         , idAttr = $el.attr('id')
@@ -82,6 +82,24 @@ define(function (require) {
         , $passEl = makeInput({type: 'password'})
       expect($txtEl[0].value).to.equal($txtEl.placeholder(options)[0].value)
       expect($passEl[0].value).to.equal($passEl.placeholder(options)[0].value)
+    })
+
+    it('should keep val and prop behavior before plugin init', function () {
+      var $el = makeInput({value: 'test value'})
+        , $emptyEl = makeInput({value: ''})
+      expect($el.val()).to.equal('test value')
+      expect($el.prop('value')).to.equal('test value')
+      expect($emptyEl.val()).to.equal('')
+      expect($emptyEl.val()).to.equal('')
+    })
+
+    it('should override val and prop behavior after plugin init', function () {
+      var $el = makeInput({value: 'test value'}).placeholder(options)
+        , $emptyEl = makeInput({value: ''}).placeholder(options)
+      expect($el.val()).to.equal('test value')
+      expect($el.prop('value')).to.equal('test value')
+      expect($emptyEl.val()).to.equal('')
+      expect($emptyEl.val()).to.equal('')
     })
 
     afterEach(function () {
