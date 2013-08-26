@@ -9,7 +9,7 @@ module.exports = function (grunt) {
       }
     , build: {
         src: 'src/<%= pkg.name %>.js'
-      , dest: 'dest/<%= pkg.name %>.min.js'
+      , dest: 'build/<%= pkg.name %>.min.js'
       }
     }
   , jshint: {
@@ -31,12 +31,14 @@ module.exports = function (grunt) {
         }
       }
     }
+  , clean: ['bower_components', "node_modules", "lib", "build"]
   })
 
   // Load plugins
   grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-jshint')
   grunt.loadNpmTasks('grunt-contrib-connect')
+  grunt.loadNpmTasks('grunt-contrib-clean')
   grunt.loadNpmTasks('grunt-mocha-phantomjs')
   grunt.loadNpmTasks('grunt-bower-task')
 
