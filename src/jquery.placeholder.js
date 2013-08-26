@@ -25,15 +25,14 @@
 
   var isInputSupported = 'placeholder' in document.createElement('input')
     , isTextareaSupported = 'placeholder' in document.createElement('textarea')
-    , Placeholder
     , $placeholders = $()
 
-  function getAttributes (elem) {
+  function getAttributes (element) {
     // Return an object of element attributes
     var newAttrs = {}
       , rinlinejQuery = /^jQuery\d+$/
 
-    $.each(elem.attributes, function () {
+    $.each(element.attributes, function () {
       if (this.specified && !rinlinejQuery.test(this.name)) {
         newAttrs[this.name] = this.value
       }
@@ -41,25 +40,25 @@
     return newAttrs
   }
 
-  function setCaretTo (el, index) {
+  function setCaretTo (element, index) {
     // Set caret to specified @index
-    if (el.createTextRange) {
-      var range = el.createTextRange()
+    if (element.createTextRange) {
+      var range = element.createTextRange()
       range.move('character', index)
       range.select()
-    } else if (el.selectionStart !== null) {
-      el.focus()
-      el.setSelectionRange(index, index)
+    } else if (element.selectionStart !== null) {
+      element.focus()
+      element.setSelectionRange(index, index)
     }
   }
 
 
-  Placeholder = function (element, options) {
+  function Placeholder (element, options) {
     this.options = options || {}
-    this.$replacement = this.$el = $(element)
-    if ( this.$el.is('[placeholder]') && (this.options.force ||
-        !isInputSupported && this.$el.is('input') ||
-        !isTextareaSupported && this.$el.is('textarea'))
+    this.$replacement = this.$element = $(element)
+    if ( this.$element.is('[placeholder]') && (this.options.force ||
+        !isInputSupported && this.$element.is('input') ||
+        !isTextareaSupported && this.$element.is('textarea'))
        ) {
       this.initialize.apply(this, arguments)
       // Cache all elements with placeholders
@@ -70,74 +69,76 @@
   Placeholder.prototype = {
 
     initialize: function () {
-      this.isActive = false
-      this.placeholderAttr = this.$el.attr('placeholder')
+      this.isHidden = true
+      this.placeholderAttr = this.$element.attr('placeholder')
       // do not mess with default behavior
-      this.$el.removeAttr('placeholder')
-      this.isPassword = this.$el.is('[type=password]')
+      this.$element.removeAttr('placeholder')
+      this.isPassword = this.$element.is('[type=password]')
       if (this.isPassword) this.makeReplacement()
       this.$replacement.on({
-        'keydown.placeholder': $.proxy(this.clearPlaceholder, this)
+        'keydown.placeholder': $.proxy(this.hide, this)
       , 'focus.placeholder drop.placeholder click.placeholder': $.proxy(this.setCaret, this)
       })
-      this.$el.on({
-        'blur.placeholder keyup.placeholder': $.proxy(this.restorePlaceholder, this)
+      this.$element.on({
+        'blur.placeholder keyup.placeholder': $.proxy(this.show, this)
       })
-      this.restorePlaceholder()
+      this.show()
     }
 
-    // Set value and clear or restore placeholder
-  , setValue: function (value) {
+    // Set or get input value
+    // Setting value toggles placeholder
+  , val: function (value) {
+      if (value === undefined) {
+        return this.isHidden ? this.$element[0].value : '';
+      }
       if (value === '') {
-        if (this.isActive) {
-          return;
-        } else {
-          this.$el[0].value = value
-          this.restorePlaceholder()
+        if (this.isHidden) {
+          this.$element[0].value = value
+          this.show()
         }
       } else {
-        if (this.isActive) this.clearPlaceholder()
-        this.$el[0].value = value
+        if (!this.isHidden) this.hide()
+        this.$element[0].value = value
       }
+      return this
     }
 
-    // Clear placeholder value at user input
-  , clearPlaceholder: function (e) {
-      var isActiveElement
-      if (!this.isActive) return;
+    // Hide placeholder at user input
+  , hide: function (e) {
+      var isActiveElement = this.$replacement.is(':focus')
+      if (this.isHidden) return;
       if (!e || !(e.shiftKey && e.keyCode === 16) && e.keyCode !== 9) {
-        this.isActive = false
+        this.isHidden = true
         if (this.isPassword) {
-          isActiveElement = this.$replacement.is(':focus')
-          this.$replacement.before(this.$el.show()).hide()
-          if (isActiveElement) this.$el.focus()
+          this.$replacement.before(this.$element.show()).hide()
+          if (isActiveElement) this.$element.focus()
         } else {
-          this.$el[0].value = ''
-          this.$el.removeClass(this.options.className)
+          this.$element[0].value = ''
+          this.$element.removeClass(this.options.className)
         }
       }
     }
 
-    // Restore placeholder on blur and keyup
-  , restorePlaceholder: function () {
-      var isActiveElement = this.$el.is(':focus')
-      if (this.isActive) return;
-      if (this.$el[0].value === '') {
-        this.isActive = true
+    // Show placeholder on blur and keyup
+  , show: function (e) {
+      var isActiveElement = this.$element.is(':focus')
+      if (!this.isHidden) return;
+      if (this.$element[0].value === '') {
+        this.isHidden = false
         if (this.isPassword) {
-          this.$el.before(this.$replacement.show()).hide()
+          this.$element.before(this.$replacement.show()).hide()
           if (isActiveElement) this.$replacement.focus()
         } else {
-          this.$el[0].value = this.placeholderAttr
-          this.$el.addClass(this.options.className)
-          if (isActiveElement) this.setCaret.apply(this, arguments)
+          this.$element[0].value = this.placeholderAttr
+          this.$element.addClass(this.options.className)
+          if (isActiveElement) this.setCaret(e)
         }
       }
     }
 
     // Set caret at the beginning of the input
   , setCaret: function (e) {
-      if (this.isActive && e) {
+      if (e && !this.isHidden) {
         setCaretTo(this.$replacement[0], 0)
         e.preventDefault()
       }
@@ -148,7 +149,7 @@
       // we can't use $.fn.clone because ie <= 8 doesn't allow type change
       var replacementAttributes =
         $.extend(
-          getAttributes(this.$el[0])
+          getAttributes(this.$element[0])
         , { 'type': 'text'
           , 'value': this.placeholderAttr
           }
@@ -171,17 +172,11 @@
   $.valHooks.input = $.valHooks.textarea = $.propHooks.value = {
     get: function (element) {
       var placeholder = $(element).data('placeholder')
-      return placeholder && placeholder.isActive ? '' : element.value;
+      return placeholder ? placeholder.val() : element.value;
     }
   , set: function (element, value) {
       var placeholder = $(element).data('placeholder')
-      if (!placeholder) {
-        return element.value = value;
-      } else {
-        placeholder.setValue(value)
-        // `set` can not return `undefined`; see http://jsapi.info/jquery/1.7.1/val#L2363
-        return element
-      }
+      return placeholder ? placeholder.val(value) : element.value = value;
     }
   }
 
@@ -206,13 +201,13 @@
   // Events
   $(document).on('submit.placeholder', 'form', function () {
     // Clear the placeholder values so they don't get submitted
-    $placeholders.placeholder('clearPlaceholder')
+    $placeholders.placeholder('hide')
     // And then restore them back
-    setTimeout(function () { $placeholders.placeholder('restorePlaceholder') }, 10)
+    setTimeout(function () { $placeholders.placeholder('show') }, 10)
   })
   $(window).on('beforeunload.placeholder', function () {
     // Clear placeholders upon page reload
-    $placeholders.placeholder('clearPlaceholder')
+    $placeholders.placeholder('hide')
   })
 
   return Placeholder
