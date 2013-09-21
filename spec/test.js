@@ -102,6 +102,12 @@ define(function (require) {
       expect($emptyEl.val()).to.equal('')
     })
 
+    it('should not initialize in modern browsers', function () {
+      var $el = makeInput().placeholder()
+        , isInputSupported = 'placeholder' in document.createElement('input');
+      expect(isInputSupported && !!$el.data('placeholder')).to.be(false)
+    })
+
     afterEach(function () {
       $('#test').empty()
     })

@@ -56,14 +56,9 @@
   function Placeholder (element, options) {
     this.options = options || {}
     this.$replacement = this.$element = $(element)
-    if ( this.$element.is('[placeholder]') && (this.options.force ||
-        !isInputSupported && this.$element.is('input') ||
-        !isTextareaSupported && this.$element.is('textarea'))
-       ) {
-      this.initialize.apply(this, arguments)
-      // Cache all elements with placeholders
-      $placeholders = $placeholders.add(element)
-    }
+    this.initialize.apply(this, arguments)
+    // Cache all elements with placeholders
+    $placeholders = $placeholders.add(element)
   }
 
   Placeholder.prototype = {
@@ -187,8 +182,14 @@
       var $this = $(this)
         , data = $this.data('placeholder')
         , options = $.extend({}, $.fn.placeholder.defaults, typeof option === 'object' && option)
-      if (!data) $this.data('placeholder', data = new Placeholder(this, options))
-      if (typeof option === 'string') data[option]()
+
+      if (!data && $this.is('[placeholder]') && (options.force ||
+          !isInputSupported && $this.is('input') ||
+          !isTextareaSupported && $this.is('textarea'))) {
+        $this.data('placeholder', data = new Placeholder(this, options))
+      }
+
+      if (data && typeof option === 'string') data[option]()
     })
   }
   $.fn.placeholder.defaults = {
