@@ -15,6 +15,9 @@ This plugin is my attempt to bring modern placeholder behavior to the browsers t
 ## Features
 
 * Works for text and password inputs
+* Hides placeholder only when user starts typing
+* $.fn.val and $.fn.prop properly get/set values
+* $.fn.attr() properly gets/sets placeholder attribute
 * Supports AMD
 
 ## Usage
