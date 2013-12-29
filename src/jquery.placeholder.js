@@ -66,6 +66,8 @@
     initialize: function () {
       this.isHidden = true
       this.placeholderAttr = this.$element.attr('placeholder')
+      // disable autocomplete
+      this.$element.attr('autocomplete', 'off')
       // do not mess with default behavior
       this.$element.removeAttr('placeholder')
       this.isPassword = this.$element.is('[type=password]')
