@@ -73,7 +73,7 @@
       this.isPassword = this.$element.is('[type=password]')
       if (this.isPassword) this.makeReplacement()
       this.$replacement.on({
-        'keydown.placeholder': $.proxy(this.hide, this)
+        'keydown.placeholder contextmenu.placeholder': $.proxy(this.hide, this)
       , 'focus.placeholder drop.placeholder click.placeholder': $.proxy(this.setCaret, this)
       })
       this.$element.on({
