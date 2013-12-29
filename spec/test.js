@@ -108,6 +108,31 @@ define(function (require) {
       expect(isInputSupported && !!$el.data('placeholder')).to.be(false)
     })
 
+    it('should be able to change with $.fn.attr', function () {
+      var $el = makeInput({value: ''}).placeholder(options)
+      $el.attr('placeholder', 'new value')
+      expect($el[0].value).to.equal('new value')
+      expect($el.attr('placeholder')).to.equal('new value')
+    })
+
+    it('should be able to change with $.fn.attr for password field', function () {
+      var $el = makeInput({value: '', type: 'password'})
+        , idAttr = $el.attr('id')
+        , $replacement
+
+      $el.placeholder(options)
+      $replacement = $('#test').find('#' + idAttr)
+      $el.attr('placeholder', 'new value')
+      expect($replacement[0].value).to.equal('new value')
+      expect($el.attr('placeholder')).to.equal('new value')
+    })
+
+    it('should be able to change with $.fn.attr for modern browsers', function () {
+      var $el = makeInput({value: ''}).placeholder()
+      $el.attr('placeholder', 'new value')
+      expect($el.attr('placeholder')).to.equal('new value')
+    })
+
     afterEach(function () {
       $('#test').empty()
     })

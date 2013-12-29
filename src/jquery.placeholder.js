@@ -175,6 +175,26 @@
     }
   }
 
+  $.attrHooks.placeholder = {
+    get: function (element) {
+      var placeholder = $(element).data('placeholder')
+      if (placeholder) return placeholder.placeholderAttr
+      else return element.getAttribute('placeholder')
+    }
+  , set: function (element, value) {
+      var placeholder = $(element).data('placeholder')
+      if (placeholder) {
+        placeholder.placeholderAttr = value
+        if (!placeholder.isHidden) {
+          placeholder.$replacement[0].value = value
+        }
+      } else {
+        element.setAttribute('placeholder', value)
+      }
+      return element
+    }
+  }
+
 
   // Plugin definition
   $.fn.placeholder = function (option) {
