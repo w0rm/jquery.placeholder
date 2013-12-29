@@ -127,6 +127,16 @@ define(function (require) {
       expect($el.attr('placeholder')).to.equal('new value')
     })
 
+    it('should correctly restore new value set with $.fn.attr for password field', function () {
+      var $el = makeInput({type: 'password'}).placeholder(options)
+        , idAttr = $el.attr('id')
+        , $replacement
+      $el.attr('placeholder', 'new value')
+      $el.val('')
+      $replacement = $('#test').find('#' + idAttr)
+      expect($replacement[0].value).to.equal('new value')
+    })
+
     it('should be able to change with $.fn.attr for modern browsers', function () {
       var $el = makeInput({value: ''}).placeholder()
       $el.attr('placeholder', 'new value')

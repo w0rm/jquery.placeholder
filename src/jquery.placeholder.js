@@ -122,11 +122,11 @@
       if (!this.isHidden) return;
       if (this.$element[0].value === '') {
         this.isHidden = false
+        this.$replacement[0].value = this.placeholderAttr
         if (this.isPassword) {
           this.$element.before(this.$replacement.show()).hide()
           if (isActiveElement) this.$replacement.focus()
         } else {
-          this.$element[0].value = this.placeholderAttr
           this.$element.addClass(this.options.className)
           if (isActiveElement) this.setCaret(e)
         }
